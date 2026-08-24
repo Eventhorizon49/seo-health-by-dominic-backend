@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SEO Health by Dominic — API Tester</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f6f8;
+      margin: 0;
+      padding: 24px;
+      color: #111;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      color: #666;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 18px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 16px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      border: 0;
+      border-radius: 12px;
+      background: #1769ff;
+      color: white;
+      font-weight: 700;
+      font-size: 16px;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-size: 13px;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    .brand {
+      font-size: 13px;
+      color: #777;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+  <div class="brand">SEO Health by Dominic</div>
+
+  <h1>Backend Audit Tester</h1>
+
+  <p>
+    Test the SEO Health by Dominic backend before connecting it to the main app.
+  </p>
+
+  <div class="card">
+
+    <input
+      id="url"
+      placeholder="https://example.com"
+      value="https://example.com"
+    >
+
+    <button onclick="runAudit()">
+      Run SEO Audit
+    </button>
+
+  </div>
+
+  <div class="card">
+    <strong>Audit Result</strong>
+
+    <pre id="result">
+Waiting for audit...
+    </pre>
+  </div>
+
+</div>
+
+<script>
+
+async function runAudit() {
+
+  const result =
+    document.getElementById("result");
+
+  const url =
+    document.getElementById("url").value;
+
+  result.textContent =
+    "Running SEO audit...";
+
+  try {
+
+    const response =
+      await fetch("/audit", {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+          url: url
+        })
+      });
+
+    const data =
+      await response.json();
+
+    result.textContent =
+      JSON.stringify(
+        data,
+        null,
+        2
+      );
+
+  } catch (error) {
+
+    result.textContent =
+      "ERROR:\n\n" +
+      error.message;
+
+  }
+
+}
+
+</script>
+
+</body>
+</html>
