@@ -8,6 +8,14 @@ const app = express();
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 
+const path = require("path");
+
+app.get("/test", (req, res) => {
+  res.sendFile(
+    path.join(__dirname, "test.html")
+  );
+});
+
 const PORT = process.env.PORT || 3000;
 
 const BRAND = {
